@@ -20,7 +20,7 @@ def hello_world() -> str:
 
 @app.route('/users', methods=['POST'])
 def register_user() -> str:
-    """Registers a new user if it does not exist before"""
+    """Registers new user if not exist before"""
     try:
         email = request.form['email']
         password = request.form['password']
@@ -38,7 +38,7 @@ def register_user() -> str:
 
 @app.route('/sessions', methods=['POST'])
 def log_in() -> str:
-    """ Logs in a user and returns session ID """
+    """ Logs in user then returns session ID """
     try:
         email = request.form['email']
         password = request.form['password']
@@ -60,9 +60,9 @@ def log_in() -> str:
 
 @app.route('/sessions', methods=['DELETE'])
 def log_out() -> str:
-    """Find the user with the requested session ID.
-    If the user exists destroy the session and redirect the user to GET /.
-    If the user does not exist, respond with a 403 HTTP status.
+    """Find user with requested session ID.
+    If exists remove session and redirect  user to GET /.
+    If not exist, respond with 403 HTTP status.
     """
     session_id = request.cookies.get("session_id", None)
 
@@ -81,8 +81,8 @@ def log_out() -> str:
 
 @app.route('/profile', methods=['GET'])
 def profile() -> str:
-    """ If the user exist, respond with a 200 HTTP status and a JSON Payload
-    Otherwise respond with a 403 HTTP status.
+    """ If user exist, respond with 200 HTTP status and a JSON Payload
+    Otherwise respond with 403 HTTP status.
     """
     session_id = request.cookies.get("session_id", None)
 
@@ -101,8 +101,8 @@ def profile() -> str:
 
 @app.route('/reset_password', methods=['POST'])
 def reset_password() -> str:
-    """If the email is not registered, respond with a 403 status code.
-    Otherwise, generate a token and respond with a
+    """If email is not registered, respond with a 403 status code.
+    Otherwise, generate token and respond with a
     200 HTTP status and JSON Payload
     """
     try:

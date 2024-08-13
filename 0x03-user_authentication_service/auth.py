@@ -10,20 +10,19 @@ from uuid import uuid4
 
 
 def _hash_password(password: str) -> str:
-    """ Returns a salted hash of the input password """
+    """ Returns salted hash of input password """
     hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     return hashed
 
 
 def _generate_uuid() -> str:
-    """Returns a string representation of a new UUID"""
+    """Returns a string representation of new UUID"""
     UUID = uuid4()
     return str(UUID)
 
 
 class Auth:
-    """Auth class to interact with the authentication database.
-    """
+    """Auth class to interact with the authentication db."""
 
     def __init__(self):
         self._db = DB()
@@ -45,7 +44,7 @@ class Auth:
             raise ValueError(f'User {email} already exists')
 
     def valid_login(self, email: str, password: str) -> bool:
-        """If password is valid returns true, else, false"""
+        """If password valid return true, else false"""
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
@@ -73,7 +72,7 @@ class Auth:
         return session_id
 
     def get_user_from_session_id(self, session_id: str) -> Union[str, None]:
-        """It takes a single session_id string argument
+        """Takes a single session_id string arg
         Returns a string or None
         """
         if session_id is None:
@@ -87,7 +86,7 @@ class Auth:
         return user
 
     def destroy_session(self, user_id: int) -> None:
-        """Updates the corresponding user's session ID to None"""
+        """Updates the user's session ID to None"""
         try:
             user = self._db.find_user_by(id=user_id)
         except NoResultFound:
